@@ -1,0 +1,408 @@
+/* ---------------------------------------------------------------
+   Design system: "Site Plan" — an architectural drafting aesthetic
+   for a property valuation tool. Grid-paper background, navy ink,
+   blueprint-blue for interaction, brass for value/price, register
+   marks on cards, dimension-line price readout.
+   --------------------------------------------------------------- */
+
+:root {
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  color-scheme: light;
+
+  --ink: #16213e;
+  --ink-soft: #2a3a63;
+  --blueprint: #2f5d8a;
+  --blueprint-dark: #234a70;
+  --brass: #b8863b;
+  --brass-dark: #96692a;
+  --paper: #f2f4f7;
+  --card: #fbfbf9;
+  --line: #c7d0dc;
+  --muted: #64708a;
+  --error: #a8402b;
+  --error-bg: #fbece7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--paper);
+  min-height: 100vh;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blueprint);
+  outline-offset: 2px;
+}
+
+.bg-decor {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=2400&h=1400&q=85&auto=format&fit=crop");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 20px 72px;
+}
+
+.page-header {
+  margin-bottom: 28px;
+  display: inline-block;
+  background: rgba(251, 251, 249, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  padding: 22px 26px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass-dark);
+  margin: 0 0 10px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--brass);
+  display: inline-block;
+}
+
+.page-header h1 {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.subtitle {
+  color: var(--ink-soft);
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  max-width: 52ch;
+}
+
+.alert {
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  font-size: 0.92rem;
+  border-left: 3px solid var(--error);
+}
+
+.alert-error {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+/* ---------------- Card shell with register (crop) marks ---------------- */
+
+.prediction-form,
+.result-card,
+.details-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 28px 24px;
+}
+
+.prediction-form::before,
+.prediction-form::after,
+.result-card::before,
+.result-card::after,
+.details-card::before,
+.details-card::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--brass);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.prediction-form::before,
+.result-card::before,
+.details-card::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+
+.prediction-form::after,
+.result-card::after,
+.details-card::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+.prediction-form {
+  margin-top: 4px;
+}
+
+/* ---------------------------- Form ---------------------------- */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-field label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.form-field input,
+.form-field select {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  background: #fff;
+  color: var(--ink);
+}
+
+.form-field input::placeholder {
+  color: #9aa4b8;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--blueprint);
+  box-shadow: 0 0 0 3px rgba(47, 93, 138, 0.15);
+}
+
+.field-error {
+  color: var(--error);
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+}
+
+.submit-btn {
+  margin-top: 26px;
+  width: 100%;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 4px;
+  background: var(--brass);
+  color: #fff9f0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.submit-btn::after {
+  content: "→";
+  font-family: var(--font-body);
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: var(--brass-dark);
+}
+
+.submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.link-btn {
+  margin-top: 20px;
+}
+
+.loading-banner {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--line);
+  border-top-color: var(--blueprint);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* -------------------------- Result page -------------------------- */
+
+.result-card {
+  text-align: center;
+  padding: 40px 24px 32px;
+  margin-bottom: 20px;
+}
+
+.dimension-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.dimension-tick {
+  flex: 1;
+  max-width: 64px;
+  height: 1px;
+  background: var(--brass);
+  position: relative;
+}
+
+.dimension-tick::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  width: 1px;
+  height: 11px;
+  background: var(--brass);
+}
+
+.dimension-tick.left::after {
+  right: 0;
+}
+
+.dimension-tick.right::after {
+  left: 0;
+}
+
+.result-price {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.result-price-exact {
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.details-card h2 {
+  margin: 0 0 18px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.details-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.details-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.details-row dt {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.details-row .leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--line);
+  transform: translateY(-3px);
+}
+
+.details-row dd {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* -------------------------- 404 page -------------------------- */
+
+.stamp {
+  display: inline-block;
+  border: 2px solid var(--brass);
+  border-radius: 4px;
+  padding: 4px 12px;
+  transform: rotate(-3deg);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass-dark);
+  margin-bottom: 14px;
+}
