@@ -1,0 +1,45 @@
+# ===== Python / Backend / Notebook =====
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.Python
+*.egg-info/
+.ipynb_checkpoints/
+
+# ===== Raw dataset (large, download via README instructions) =====
+notebooks/data/*.csv
+*.csv
+!locations.json
+
+# ===== Environment files =====
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ===== Logs =====
+logs
+*.log
+npm-debug.log*
+
+# ===== Frontend (Node) =====
+node_modules/
+dist/
+dist-ssr/
+
+# ===== Editor / OS =====
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ===== Model file (keep only if < 50MB) =====
+# models/house_price.pkl
